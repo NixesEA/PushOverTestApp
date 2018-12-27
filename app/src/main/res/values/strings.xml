@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PushOverTestApp</string>
+    <string name="appToken">ae8sx39y3n8bzjoqobgfregg65g5mg</string>
 </resources>
