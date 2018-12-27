@@ -1,5 +1,6 @@
 package com.nixesea.pushovertestapp;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnHistory;
 
     private APIService mAPIService;
+    HistoryDao hd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +51,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSend.setOnClickListener(this);
     }
 
-    public void sendPost(String appToken, String userToken, String title, String message) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class,"database")
+                .allowMainThreadQueries()
+                .build();
+        hd = db.historyDao();
+    }
+
+    public void sendPost(String appToken, final String userToken, String title, final String message) {
         mAPIService.savePost(appToken, userToken, title, message).enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
 
                 if (response.isSuccessful()) {
                     showToast("Сообщение отправлено");
+                    writeInRoom(userToken,message);
+
                     Log.i("TAG", "Сообщение отправлено" + response.body().toString());
                 }
             }
@@ -63,6 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e("TAG", "Unable to submit post to API.");
             }
         });
+    }
+
+    private void writeInRoom(String userToken,String message) {
+        SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm \t dd.MM.yyyy");
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        String date = formatDate.format(gregorianCalendar.getTime());
+
+        HistoryUnit historyUnit = new HistoryUnit("Получатель:\n" + userToken, message, "Отправлено: " + date);
+        hd.insert(historyUnit);
     }
 
 
