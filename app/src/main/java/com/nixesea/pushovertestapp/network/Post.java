@@ -1,4 +1,4 @@
-package com.nixesea.pushovertestapp;
+package com.nixesea.pushovertestapp.network;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

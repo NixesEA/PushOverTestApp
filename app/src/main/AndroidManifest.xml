@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".QRActivity" />
-        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".database.HistoryActivity"></activity>
     </application>
 
 </manifest>

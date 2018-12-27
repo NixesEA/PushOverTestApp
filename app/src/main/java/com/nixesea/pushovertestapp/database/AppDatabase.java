@@ -1,4 +1,4 @@
-package com.nixesea.pushovertestapp;
+package com.nixesea.pushovertestapp.database;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;

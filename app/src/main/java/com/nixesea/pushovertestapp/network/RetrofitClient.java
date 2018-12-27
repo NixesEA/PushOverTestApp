@@ -1,4 +1,4 @@
-package com.nixesea.pushovertestapp;
+package com.nixesea.pushovertestapp.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

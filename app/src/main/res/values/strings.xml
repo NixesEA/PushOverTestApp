@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PushOverTestApp</string>
     <string name="appToken">ae8sx39y3n8bzjoqobgfregg65g5mg</string>
+    <string name="default_User_ID">userID</string>
+    <string name="default_data">data</string>
+    <string name="default_message">message</string>
 </resources>

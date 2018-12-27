@@ -1,4 +1,4 @@
-package com.nixesea.pushovertestapp;
+package com.nixesea.pushovertestapp.network;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
